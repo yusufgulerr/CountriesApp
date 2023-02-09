@@ -1,4 +1,4 @@
-package com.yusufguler.countries
+package com.yusufguler.countries.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -29,9 +29,10 @@ class FeedFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+      /*
         binding.feedButton.setOnClickListener {
             val action = FeedFragmentDirections.actionFeedFragmentToDetailFragment()
             Navigation.findNavController(it).navigate(action)
-        }
+        }*/
     }
 }

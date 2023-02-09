@@ -1,14 +1,17 @@
-package com.yusufguler.countries
+package com.yusufguler.countries.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.yusufguler.countries.DetailFragmentArgs
+import com.yusufguler.countries.R
 
 
 class DetailFragment : Fragment() {
 
+    private var countryUuid = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -21,5 +24,16 @@ class DetailFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_detail, container, false)
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        arguments?.let {
+            countryUuid = DetailFragmentArgs.fromBundle(it).countryUuid
+        }
+
+
+
+    }
+
 
 }
