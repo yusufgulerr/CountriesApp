@@ -5,12 +5,22 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.yusufguler.countries.DetailFragmentArgs
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.get
+import com.yusufguler.countries.view.DetailFragmentArgs
 import com.yusufguler.countries.R
+import com.yusufguler.countries.databinding.FragmentDetailBinding
+import com.yusufguler.countries.databinding.FragmentFeedBinding
+import com.yusufguler.countries.viewmodel.CountryViewModel
 
 
 class DetailFragment : Fragment() {
 
+    private lateinit var viewModel:CountryViewModel
+
+    private var _binding: FragmentDetailBinding? = null
+    private val binding get() = _binding!!
     private var countryUuid = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,21 +28,35 @@ class DetailFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_detail, container, false)
+        _binding = FragmentDetailBinding.inflate(inflater, container, false)
+        val view = binding.root
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProviders.of(this).get(CountryViewModel::class.java)
+        viewModel.getDataFromRoom()
         arguments?.let {
             countryUuid = DetailFragmentArgs.fromBundle(it).countryUuid
         }
+        observeLiveData()
+    }
+    private fun observeLiveData(){
+        viewModel.countryLiveData.observe(viewLifecycleOwner,Observer{country->
+            country?.let{
+                binding.countryName.text = country.countryName
+                binding.countryCapital.text = country.countryCapital
+                binding.countryCurrency.text = country.countryCurrency
+                binding.countryLanguage.text = country.countryLanguage
+                binding.countryRegion.text = country.countryRegion
+            }
 
-
-
+        })
     }
 
 

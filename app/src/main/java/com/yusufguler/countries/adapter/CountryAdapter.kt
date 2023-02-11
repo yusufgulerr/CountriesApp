@@ -3,10 +3,12 @@ package com.yusufguler.countries.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.yusufguler.countries.R
 import com.yusufguler.countries.databinding.ItemCountryBinding
 import com.yusufguler.countries.model.Country
+import com.yusufguler.countries.view.FeedFragmentDirections
 
 class CountryAdapter(val countryList:ArrayList<Country>):RecyclerView.Adapter<CountryAdapter.CountryViewHolder>(){
 
@@ -28,6 +30,11 @@ class CountryAdapter(val countryList:ArrayList<Country>):RecyclerView.Adapter<Co
     override fun onBindViewHolder(holder: CountryViewHolder, position: Int) {
             holder.binding.name.text = countryList[position].countryName
             holder.binding.region.text =countryList[position].countryRegion
+            holder.view.setOnClickListener {
+                val action = FeedFragmentDirections.actionFeedFragmentToDetailFragment()
+                Navigation.findNavController(it).navigate(action)
+
+            }
     }
     fun updateCountryList(newCountryList:ArrayList<Country>){
         countryList.clear()
