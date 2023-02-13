@@ -3,10 +3,9 @@ package com.yusufguler.countries.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.yusufguler.countries.model.Country
-import com.yusufguler.countries.model.CountryAPIService
+import com.yusufguler.countries.service.CountryAPIService
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 

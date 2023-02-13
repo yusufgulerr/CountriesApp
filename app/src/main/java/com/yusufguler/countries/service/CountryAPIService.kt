@@ -1,11 +1,10 @@
-package com.yusufguler.countries.model
+package com.yusufguler.countries.service
 
-import com.yusufguler.countries.service.CountryAPI
+import com.yusufguler.countries.model.Country
 import io.reactivex.Single
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 
 class CountryAPIService {
     ////https://raw.githubusercontent.com/
@@ -21,7 +20,5 @@ class CountryAPIService {
     fun getData() : Single<List<Country>>{
         return api.getCountries()
     }
-
-
 
 }
