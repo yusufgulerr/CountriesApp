@@ -12,6 +12,8 @@ import com.yusufguler.countries.view.DetailFragmentArgs
 import com.yusufguler.countries.R
 import com.yusufguler.countries.databinding.FragmentDetailBinding
 import com.yusufguler.countries.databinding.FragmentFeedBinding
+import com.yusufguler.countries.util.downloadFromURL
+import com.yusufguler.countries.util.placeHolderProgressBar
 import com.yusufguler.countries.viewmodel.CountryViewModel
 
 
@@ -39,11 +41,12 @@ class DetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(CountryViewModel::class.java)
-        viewModel.getDataFromRoom()
         arguments?.let {
             countryUuid = DetailFragmentArgs.fromBundle(it).countryUuid
         }
+        viewModel = ViewModelProviders.of(this).get(CountryViewModel::class.java)
+        viewModel.getDataFromRoom(countryUuid)
+
         observeLiveData()
     }
     private fun observeLiveData(){
@@ -54,6 +57,9 @@ class DetailFragment : Fragment() {
                 binding.countryCurrency.text = country.countryCurrency
                 binding.countryLanguage.text = country.countryLanguage
                 binding.countryRegion.text = country.countryRegion
+                context?.let {
+                    binding.countryImage.downloadFromURL(country.imgeUrl, placeHolderProgressBar(it))
+                }
             }
 
         })

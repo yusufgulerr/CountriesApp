@@ -17,6 +17,7 @@ class CountryAdapter(val countryList:ArrayList<Country>):RecyclerView.Adapter<Co
 
     class CountryViewHolder(var view: View) :RecyclerView.ViewHolder(view){
         val binding = ItemCountryBinding.bind(view)
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CountryViewHolder {
@@ -34,7 +35,9 @@ class CountryAdapter(val countryList:ArrayList<Country>):RecyclerView.Adapter<Co
             holder.binding.region.text =countryList[position].countryRegion
 
             holder.view.setOnClickListener {
+
                 val action = FeedFragmentDirections.actionFeedFragmentToDetailFragment()
+                action.countryUuid = countryList[position].uuid
                 Navigation.findNavController(it).navigate(action)
 
             }
