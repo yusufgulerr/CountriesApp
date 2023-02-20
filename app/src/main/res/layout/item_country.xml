@@ -2,16 +2,35 @@
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     >
-
+    <data>
+        <variable
+            name="country"
+            type="com.yusufguler.countries.model.Country" />
+        <variable
+            name="listener"
+            type="com.yusufguler.countries.adapter.CountryClickListener" />
+    </data>
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="150dp"
+    android:onClick="@{listener::onCountryClicked}"
     android:orientation="horizontal">
+    <TextView
+        android:id="@+id/invisibleUuid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:text="@{String.valueOf(country.uuid)}"
+        >
+
+    </TextView>
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="2"
+        android:downloadUrl="@{country.imgeUrl}"
         android:padding="3dp">
     </ImageView>
     <LinearLayout
@@ -19,12 +38,13 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="3"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        >
         <TextView
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Name"
+            android:text="@{country.countryName}"
             android:textStyle="bold"
             android:textSize="20sp"
             android:padding="5dp">
@@ -33,7 +53,7 @@
             android:id="@+id/region"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Region"
+            android:text="@{country.countryRegion}"
             android:textSize="17sp"
             android:padding="5dp">
         </TextView>
